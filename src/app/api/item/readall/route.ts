@@ -10,6 +10,7 @@ export async function GET() {
         return NextResponse.json({message: "アイテム読み取り成功（オール）", allItems: allItems})
         
     } catch (error) {
+        console.log(error)
         return NextResponse.json({message: "アイテム読み取り失敗（オール）"})
         
     }
