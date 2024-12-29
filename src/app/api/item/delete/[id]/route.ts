@@ -2,13 +2,13 @@ import connectDB from "@/app/utils/database";
 import { ItemModel } from "@/app/utils/schemaModels";
 import { NextResponse } from "next/server";
 
-interface Params {
-    id: string;
-}
-interface Context {
-    params: Params;
-}
-export async function DELETE(request: Request, context: Context) {
+// interface Params {
+//     id: string;
+// }
+// interface Context {
+//     params: Params;
+// }
+export async function DELETE(request: Request, context: { params: { id: string } }) {
     const reqBody = await request.json()
     try {
         await connectDB()
