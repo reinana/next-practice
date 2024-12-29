@@ -2,25 +2,15 @@ import connectDB from "@/app/utils/database";
 import { ItemModel } from "@/app/utils/schemaModels";
 import { NextResponse } from "next/server";
 
-// 動的ルートのパラメータ型
-interface Params {
-    id: string; // 動的ルートの "id" パラメータ
-  }
-  
-  // context の型
-  interface Context {
-    params: Params; // 動的ルートのパラメータ
-  }
-
-export async function PUT(request: Request, context: Context) {
+export async function PUT(request: Request,{ params }: { params: Promise<{ id: string }>}) {
     const reqBody = await request.json()
     try {
         await connectDB()
-        const params = await context.params
-        const singleItem = await ItemModel.findById(params.id)
+        const id = (await params).id
+        const singleItem = await ItemModel.findById(id)
         if (singleItem) {
             if(singleItem.email === reqBody.email) {
-                await ItemModel.updateOne({_id: params.id}, reqBody)
+                await ItemModel.updateOne({_id: id}, reqBody)
                 return NextResponse.json({message: "アイテム編集成功"})
                 
             } else {
