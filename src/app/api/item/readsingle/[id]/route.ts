@@ -1,17 +1,17 @@
 import connectDB from "@/app/utils/database";
 import { ItemModel } from "@/app/utils/schemaModels";
 import { NextResponse } from "next/server";
-// 動的ルートのパラメータ型
-interface Params {
-    id: string; // 動的ルートの "id" パラメータ
-  }
+// // 動的ルートのパラメータ型
+// interface Params {
+//     id: string; // 動的ルートの "id" パラメータ
+//   }
   
-  // context の型
-  interface Context {
-    params: Params; // 動的ルートのパラメータ
-  }
+//   // context の型
+//   interface Context {
+//     params: Params; // 動的ルートのパラメータ
+//   }
 
-export async function GET(request: Request, context: Context) {
+export async function GET(request: Request, context: { params: any; }) {
     const params = await context.params
     // console.log(params.id)
     try {
