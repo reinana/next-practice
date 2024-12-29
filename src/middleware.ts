@@ -15,6 +15,7 @@ export async function middleware(request: Request) {
         console.log("decodedJwt",decodedJwt)
         return NextResponse.next()
     } catch (error) {
+        console.log(error)
         return NextResponse.json({message: "トークンが正しくないので、ログインしてください"})
         
     }
