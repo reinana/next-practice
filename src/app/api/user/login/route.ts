@@ -24,7 +24,7 @@ export async function POST(request: Request) {
                                 .setProtectedHeader({alg: "HS256"}) // アルゴリズム
                                 .setExpirationTime("1d") // 期間1day
                                 .sign(secretKey)
-                console.log(token)
+                // console.log(token)
                 return NextResponse.json({message: "ログイン成功", token: token})
             } else {
                 // パスワードが間違っているとき
