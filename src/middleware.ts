@@ -27,8 +27,5 @@ export const config = {
         "/api/item/create",
         "/api/item/update/:path*",
         "/api/item/delete/:path*",
-        "/item/create",
-        "/item/update/:path*",
-        "/item/delete/:path*"
     ],
 };
