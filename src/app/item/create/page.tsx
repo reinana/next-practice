@@ -2,6 +2,9 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/app/utils/useAuth'
+import { CldUploadWidget } from 'next-cloudinary'
+import { CloudinaryUploadWidgetInfo } from "@cloudinary-util/types";
+
 
 const CreateItem = () => {
     const loginUserEmail = useAuth()
@@ -40,19 +43,38 @@ const CreateItem = () => {
 
         }
     }
+
     if (loginUserEmail) {
 
         return (
             <div>
                 <h1 className='page-title'>アイテム作成</h1>
+                <CldUploadWidget uploadPreset="next-market-22"
+                    onSuccess={(results) => {
+                        const info = results.info as CloudinaryUploadWidgetInfo;
+                        const publicId = info.public_id; // 取得したpublic_id
+                        setNewItem((prevItem) => ({
+                          ...prevItem, // 既存の状態を維持
+                          image: publicId, // imageフィールドを更新
+                        }));
+                    }}
+                >
+                    {({ open }) => {
+                        return (
+                            <button onClick={() => open()}>
+                                Upload an Image
+                            </button>
+                        );
+                    }}
+                </CldUploadWidget>
                 <form onSubmit={handleSubmit}>
                     <input value={newItem.title} onChange={handleChange} type="text" name='title' placeholder='アイテム名' required />
                     <input value={newItem.price} onChange={handleChange} type="text" name='price' placeholder='価格' required />
-                    <input value={newItem.image} onChange={handleChange} type="text" name='image' placeholder='画像' required />
+                    <input value={newItem.image} type="text" name='image' placeholder='画像' readOnly />
                     <textarea value={newItem.description} onChange={handleChange} name='description' rows={15} placeholder='商品説明' required></textarea>
                     <button>作成</button>
                 </form>
-            </div>
+            </div >
         )
     }
 }

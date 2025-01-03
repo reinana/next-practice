@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/app/utils/useAuth'
+import { CldImage } from 'next-cloudinary'
 
 const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
     const [item, setItem] = useState({
@@ -58,7 +58,7 @@ const DeleteItem = ({ params }: { params: Promise<{ id: string }> }) => {
                 <h1 className='page-title'>アイテム削除</h1>
                 <form onSubmit={handleSubmit}>
                     <h2>{item.title}</h2>
-                    {item.image && <Image src={item.image} width={750} height={500} alt='item-image' priority />}
+                    {item.image && <CldImage src={item.image} width={750} height={500} alt='item-image' priority />}
                     <h3>{item.price}</h3>
                     <p>{item.description}</p>
                     <button>削除</button>

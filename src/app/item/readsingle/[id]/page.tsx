@@ -1,11 +1,17 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
+import ImgBox from '@/app/components/imgbox'
+import connectDB from '@/app/utils/database'
+import { ItemModel } from '@/app/utils/schemaModels'
 const getSingleItem = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`)
-    const jsonData = await response.json()
-    const singleItem = jsonData.singleItem
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`)
+    // const jsonData = await response.json()
+    // const singleItem = jsonData.singleItem
     // console.log(singleItem)
+
+    // RSCなので直接データベースにアクセス
+    await connectDB()
+    const singleItem = await ItemModel.findById(id)
     return singleItem
 }
 
@@ -16,7 +22,7 @@ const ReadShingleItem = async ({params}: { params: Promise<{ id: string }>}) => 
     return (
         <div className='grid-container-si'>
             <div>
-                {singleItem.image &&<Image src={singleItem.image} width={750} height={500} alt='item-image' priority/>}
+                {singleItem.image &&<ImgBox src={singleItem.image} />}
             </div>
             <div>
                 <h1>{singleItem.title}</h1>

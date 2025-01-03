@@ -1,9 +1,11 @@
 "use client"
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const router = useRouter()
 
     const handleSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -23,6 +25,7 @@ const Login = () => {
             // console.log(jsonData)
             localStorage.setItem("token", jsonData.token)
             alert(jsonData.message)
+            router.push("/")
         } catch (error) {
             console.log(error)
             alert("ログイン失敗")
