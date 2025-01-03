@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import useAuth from '@/app/utils/useAuth'
 import { CldUploadWidget } from 'next-cloudinary'
 import { CloudinaryUploadWidgetInfo } from "@cloudinary-util/types";
-import Login from '@/app/user/login/page'
 
 
 const CreateItem = () => {
@@ -77,8 +76,6 @@ const CreateItem = () => {
                 </form>
             </div >
         )
-    } else {
-        <Login />
     }
 }
 
